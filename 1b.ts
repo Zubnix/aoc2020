@@ -1,4 +1,5 @@
-const input = `
+namespace _1b {
+  const input = `
 1918
 1869
 1821
@@ -200,22 +201,23 @@ const input = `
 1766
 1407
 `
-  .split('\n')
-  .map(value => value.trim())
-  .map(value => Number.parseInt(value, 10))
+    .split('\n')
+    .map(value => value.trim())
+    .map(value => Number.parseInt(value, 10))
 
-let result: number
+  let result: number
 
-outer:
-  for (const value of input) {
-    for (const value1 of input) {
-      for (const value2 of input) {
-        if (value + value1 + value2 === 2020) {
-          result = value * value1 * value2
-          break outer
+  outer:
+    for (const value of input) {
+      for (const value1 of input) {
+        for (const value2 of input) {
+          if (value + value1 + value2 === 2020) {
+            result = value * value1 * value2
+            break outer
+          }
         }
       }
     }
-  }
 
-console.log(result)
+  console.log(result)
+}

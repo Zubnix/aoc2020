@@ -1,4 +1,4 @@
-namespace _2a {
+namespace _2b {
   const input = `
 1-7 q: qqqqxvqrkbqqztlqlzq
 1-3 q: cqbm
@@ -1001,26 +1001,18 @@ namespace _2a {
 2-4 f: xhtkdf
 5-14 x: frqqxljjwsxndx
 `
-    .split('\n')
-    .map(value => value.trim())
-    .filter(value => value.length !== 0)
-    .map(value => {
+    .split('\n').map(value => value.trim()).filter(value => value.length !== 0).map(value => {
       const tokens = value.split(' ')
-      const minMax = tokens[0].split('-').map(value1 => Number.parseInt(value1, 10))
+      const firstSecond = tokens[0].split('-').map(value1 => Number.parseInt(value1, 10))
       const letter = tokens[1].split(':')[0]
       const password = tokens[2]
-
-      return {
-        minMax,
-        letter,
-        password
-      }
+      return { firstSecond, letter, password }
     })
 
-  const result = input.filter(({ letter, minMax, password }) => {
-    const letterCount = (password.match(new RegExp(letter, "g")) || []).length
-    return letterCount >= minMax[0] && letterCount <= minMax[1]
+  const result = input.filter(({ letter, firstSecond, password }) => {
+    let matchCount = password.charAt(firstSecond[0] - 1) === letter ? 1 : 0
+    matchCount += password.charAt(firstSecond[1] - 1) === letter ? 1 : 0
+    return matchCount === 1
   }).length
-
   console.log(result)
 }
